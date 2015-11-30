@@ -9,28 +9,28 @@ export GOPATH
 default: build
 
 build: vet
-    go build -v -o ./bin/main_app ./src/main_app
+	go build -v -o ./bin/main_app ./src/main_app
 
 doc:
-    godoc -http=:6060 -index
+	godoc -http=:6060 -index
 
 # http://golang.org/cmd/go/#hdr-Run_gofmt_on_package_sources
 fmt:
-    go fmt ./src/...
+	go fmt ./src/...
 
 # https://github.com/golang/lint
 # go get github.com/golang/lint/golint
 lint:
-    golint ./src
+	golint ./src
 
 run: build
-    ./bin/main_app
+	./bin/main_app
 
 test:
-    go test ./src/...
+	go test ./src/...
 
 vendor_clean:
-    rm -dRf ./_vendor/src
+	rm -dRf ./_vendor/src
 
 # We have to set GOPATH to just the _vendor
 # directory to ensure that `go get` doesn't
@@ -39,13 +39,11 @@ vendor_clean:
 # installed in GOPATH since `go get` will use
 # that existing location as the destination.
 vendor_get: vendor_clean
-    GOPATH=${PWD}/_vendor go get -d -u -v \
-	# list path to git repos of deps here ex:
-    # github.com/codegangsta/martini
-    github.com/jawher/mow.cli
+	GOPATH=${PWD}/_vendor go get -d -u -v \
+	github.com/jawher/mow.cli
 
 vendor_update: vendor_get
-    rm -rf `find ./_vendor/src -type d -name .git` \
+	rm -rf `find ./_vendor/src -type d -name .git` \
     && rm -rf `find ./_vendor/src -type d -name .hg` \
     && rm -rf `find ./_vendor/src -type d -name .bzr` \
     && rm -rf `find ./_vendor/src -type d -name .svn`
@@ -53,4 +51,4 @@ vendor_update: vendor_get
 # http://godoc.org/code.google.com/p/go.tools/cmd/vet
 # go get code.google.com/p/go.tools/cmd/vet
 vet:
-    go vet ./src/...
+	go vet ./src/...
