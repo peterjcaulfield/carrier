@@ -9,7 +9,7 @@ export GOPATH
 default: build
 
 build: vet
-	go build -v -o ./bin/main_app ./src/main_app
+	go build -v -o ./bin/carrier ./src/carrier.go
 
 doc:
 	godoc -http=:6060 -index
@@ -24,7 +24,7 @@ lint:
 	golint ./src
 
 run: build
-	./bin/main_app
+	./bin/carrier
 
 test:
 	go test ./src/...
